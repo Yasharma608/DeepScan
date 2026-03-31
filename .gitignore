@@ -1,0 +1,26 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Editor artifacts
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Node (if testing locally)
+node_modules/
+
+# Python (if testing locally)
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Environment files (never commit these)
+.env
+.env.*
+*.pem
+*.key
