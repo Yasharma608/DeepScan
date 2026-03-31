@@ -1,0 +1,80 @@
+name: False Positive Report
+description: Report a package that Guardian Scan flagged incorrectly
+labels: ["false-positive", "triage"]
+body:
+  - type: input
+    id: package-name
+    attributes:
+      label: Package Name
+      description: The exact package name that was incorrectly flagged
+      placeholder: e.g. axios
+    validations:
+      required: true
+
+  - type: dropdown
+    id: ecosystem
+    attributes:
+      label: Ecosystem
+      options:
+        - npm
+        - PyPI
+        - Go
+        - Rust (crates.io)
+        - RubyGems
+        - Maven
+        - Packagist (PHP)
+        - NuGet (.NET)
+        - Pub (Dart)
+        - CRAN (R)
+        - Hex (Elixir)
+        - Swift
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Version Flagged
+      description: The exact version that was incorrectly flagged
+      placeholder: e.g. 1.7.9
+    validations:
+      required: true
+
+  - type: dropdown
+    id: layer
+    attributes:
+      label: Which Layer Detected It
+      options:
+        - Layer 1 — Hardcoded Blocklist
+        - Layer 2 — OSV.dev CVE Database
+        - Layer 3 — Metadata Anomaly
+        - Layer 4 — Claude AI Reasoning
+        - Unknown
+    validations:
+      required: true
+
+  - type: textarea
+    id: why-false-positive
+    attributes:
+      label: Why Is This a False Positive?
+      description: Explain why this package and version should NOT be flagged
+      placeholder: This version was released after the compromised version and is clean because...
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence or Links
+      description: Links to changelogs, security advisories, or other sources confirming this version is safe
+      placeholder: https://github.com/axios/axios/releases/tag/v1.7.9
+
+  - type: checkboxes
+    id: verification
+    attributes:
+      label: Verification
+      options:
+        - label: I have tested this against the latest version of `dep-scan.md`
+          required: true
+        - label: I have checked that the version I'm reporting is not the compromised version listed in the blocklist
+          required: true

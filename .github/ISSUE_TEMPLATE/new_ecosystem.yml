@@ -1,0 +1,62 @@
+name: New Ecosystem Request
+description: Request support for a new language or package ecosystem
+labels: ["ecosystem", "enhancement"]
+body:
+  - type: input
+    id: ecosystem-name
+    attributes:
+      label: Ecosystem / Language Name
+      placeholder: e.g. Nim / Nimble
+    validations:
+      required: true
+
+  - type: textarea
+    id: manifest-files
+    attributes:
+      label: Manifest Files
+      description: List all manifest files Claude should read for this ecosystem (one per line)
+      placeholder: |
+        .nimble
+        nim.lock
+    validations:
+      required: true
+
+  - type: input
+    id: lock-file
+    attributes:
+      label: Preferred Lock File
+      description: The lock file that contains exact resolved versions (most reliable for scanning)
+      placeholder: e.g. nim.lock
+
+  - type: input
+    id: registry-api
+    attributes:
+      label: Registry Metadata API URL
+      description: URL pattern for fetching package metadata (use {package} as placeholder)
+      placeholder: e.g. https://nimble.directory/api/v1/packages/{package}
+
+  - type: input
+    id: osv-name
+    attributes:
+      label: OSV.dev Ecosystem Name
+      description: The ecosystem identifier used in the OSV.dev API (check https://osv.dev/list)
+      placeholder: e.g. NuGet, PyPI, npm
+
+  - type: textarea
+    id: importance
+    attributes:
+      label: Why Is This Important?
+      description: Estimated user base, notable supply chain incidents in this ecosystem, or other motivation
+    validations:
+      required: true
+
+  - type: dropdown
+    id: willing-to-pr
+    attributes:
+      label: Are you willing to submit a PR for this?
+      options:
+        - "Yes — I'll implement it"
+        - "Maybe — I can help but need guidance"
+        - "No — requesting for others to implement"
+    validations:
+      required: true

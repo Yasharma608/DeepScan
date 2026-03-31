@@ -1,0 +1,70 @@
+name: Validate Skill
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint-markdown:
+    name: Lint Markdown
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install markdownlint-cli
+        run: npm install -g markdownlint-cli
+      - name: Lint dep-scan.md
+        run: markdownlint dep-scan.md --config .markdownlint.json || true
+      - name: Lint docs/
+        run: markdownlint docs/**/*.md || true
+
+  check-blocklist-format:
+    name: Validate Blocklist Table
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check blocklist table header exists
+        run: |
+          if ! grep -q "| Ecosystem | Package | Version" dep-scan.md; then
+            echo "ERROR: Blocklist table header not found in dep-scan.md"
+            echo "Expected columns: Ecosystem | Package | Version(s) | Threat | Source"
+            exit 1
+          fi
+          echo "Blocklist table header found."
+      - name: Check blocklist has entries
+        run: |
+          COUNT=$(grep -c "^| npm\|^| PyPI\|^| Go\|^| Rust\|^| Linux" dep-scan.md || true)
+          echo "Blocklist entries found: $COUNT"
+          if [ "$COUNT" -lt 5 ]; then
+            echo "ERROR: Expected at least 5 blocklist entries"
+            exit 1
+          fi
+
+  validate-fixtures:
+    name: Validate Test Fixtures
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate npm fixture JSON
+        run: |
+          python3 -m json.tool tests/fixtures/npm/package.json > /dev/null
+          echo "package.json is valid JSON"
+          python3 -m json.tool tests/fixtures/npm/package-lock.json > /dev/null
+          echo "package-lock.json is valid JSON"
+      - name: Validate clean fixture JSON
+        run: |
+          python3 -m json.tool tests/fixtures/clean/package.json > /dev/null
+          echo "clean/package.json is valid JSON"
+      - name: Check pip fixture exists
+        run: |
+          test -f tests/fixtures/pip/requirements.txt
+          echo "requirements.txt exists"
+      - name: Check go fixture exists
+        run: |
+          test -f tests/fixtures/go/go.mod
+          echo "go.mod exists"
+      - name: Check rust fixture exists
+        run: |
+          test -f tests/fixtures/rust/Cargo.toml
+          echo "Cargo.toml exists"

@@ -1,0 +1,84 @@
+name: Missing Detection Report
+description: Report a package that should be flagged but isn't
+labels: ["missing-detection", "blocklist"]
+body:
+  - type: input
+    id: package-name
+    attributes:
+      label: Package Name
+      description: The exact package name that should be flagged
+      placeholder: e.g. malicious-package
+    validations:
+      required: true
+
+  - type: dropdown
+    id: ecosystem
+    attributes:
+      label: Ecosystem
+      options:
+        - npm
+        - PyPI
+        - Go
+        - Rust (crates.io)
+        - RubyGems
+        - Maven
+        - Packagist (PHP)
+        - NuGet (.NET)
+        - Pub (Dart)
+        - CRAN (R)
+        - Hex (Elixir)
+        - Swift
+    validations:
+      required: true
+
+  - type: input
+    id: versions
+    attributes:
+      label: Compromised Version(s)
+      description: Exact version(s) that are malicious. Use commas for multiple. Use "any" only for typosquats.
+      placeholder: e.g. 1.2.3 or 1.2.3, 1.2.4
+    validations:
+      required: true
+
+  - type: dropdown
+    id: evidence-source
+    attributes:
+      label: Evidence Source
+      options:
+        - OpenSSF Malicious Packages (github.com/ossf/malicious-packages)
+        - Socket.dev incident report
+        - NVD/CVE database
+        - npm security advisory
+        - PyPI security advisory
+        - Vendor security advisory
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: evidence-link
+    attributes:
+      label: Link to Evidence
+      description: Direct link to the public evidence source
+      placeholder: https://github.com/ossf/malicious-packages/...
+    validations:
+      required: true
+
+  - type: textarea
+    id: attack-description
+    attributes:
+      label: Attack Description
+      description: Brief factual description of the attack (what it does, not editorial)
+      placeholder: e.g. Exfiltrates environment variables to attacker-controlled server on package install
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: verification
+    attributes:
+      label: Verification
+      options:
+        - label: The evidence link I provided is publicly accessible
+          required: true
+        - label: I have checked that this package/version is not already in the blocklist table in `dep-scan.md`
+          required: true

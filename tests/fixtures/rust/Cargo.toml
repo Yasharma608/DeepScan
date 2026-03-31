@@ -1,0 +1,19 @@
+[package]
+name = "test-app"
+version = "0.1.0"
+edition = "2021"
+description = "Guardian Scan test fixture — Rust project"
+
+# Expected detections:
+#   HIGH: time = "0.1.44" — multiple CVEs (RUSTSEC-2020-0071, time-of-check vulnerabilities)
+
+[dependencies]
+serde = { version = "1.0", features = ["derive"] }
+tokio = { version = "1", features = ["full"] }
+reqwest = { version = "0.11", features = ["json"] }
+time = "0.1.44"
+anyhow = "1.0"
+tracing = "0.1"
+
+[dev-dependencies]
+mockall = "0.11"

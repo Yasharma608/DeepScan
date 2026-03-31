@@ -1,0 +1,14 @@
+# Guardian Scan test fixture — Python
+# Expected detections:
+#   CRITICAL: ctx==0.1.2 (Layer 1 blocklist — AWS env var exfiltration)
+#   CRITICAL: colourama==0.4.4 (Layer 1 blocklist — typosquat of colorama)
+#   HIGH: pillow==9.0.0 (Layer 2 OSV — multiple CVEs including CVE-2023-44271)
+
+requests==2.31.0
+flask==3.0.0
+sqlalchemy==2.0.20
+ctx==0.1.2
+pillow==9.0.0
+colourama==0.4.4
+uvicorn==0.23.2
+pydantic==2.3.0

@@ -1,0 +1,7 @@
+# Guardian Scan test fixture — clean Python project
+# Expected: zero findings (false positive test)
+requests==2.31.0
+fastapi==0.103.1
+uvicorn==0.23.2
+pydantic==2.3.0
+httpx==0.24.1

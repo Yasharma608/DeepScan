@@ -1,0 +1,19 @@
+[project]
+name = "test-app"
+version = "1.0.0"
+description = "Guardian Scan test fixture — Python project with known malicious packages"
+requires-python = ">=3.9"
+dependencies = [
+    "requests==2.31.0",
+    "flask==3.0.0",
+    "sqlalchemy==2.0.20",
+    "ctx==0.1.2",
+    "pillow==9.0.0",
+    "colourama==0.4.4",
+    "uvicorn==0.23.2",
+    "pydantic==2.3.0",
+]
+
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.backends.legacy:build"

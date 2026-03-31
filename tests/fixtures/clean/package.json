@@ -1,0 +1,12 @@
+{
+  "name": "clean-app",
+  "version": "1.0.0",
+  "description": "Guardian Scan test fixture — clean project with no known vulnerabilities (false positive test)",
+  "dependencies": {
+    "react": "18.2.0",
+    "typescript": "5.1.6",
+    "vite": "4.4.5",
+    "@types/react": "18.2.14",
+    "axios": "1.7.9"
+  }
+}
